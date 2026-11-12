@@ -8,9 +8,14 @@ APP=build/WheelFlip.app
 rm -rf "$APP"
 mkdir -p "$APP/Contents/MacOS"
 
-xcrun swiftc -O -target arm64-apple-macos13.0 \
-  -framework AppKit -framework ApplicationServices -framework ServiceManagement \
-  Sources/main.swift -o "$APP/Contents/MacOS/WheelFlip"
+# Universal binary: Apple Silicon + Intel.
+for arch in arm64 x86_64; do
+  xcrun swiftc -O -target $arch-apple-macos13.0 \
+    -framework AppKit -framework ApplicationServices -framework ServiceManagement \
+    Sources/main.swift -o "build/WheelFlip-$arch"
+done
+lipo -create build/WheelFlip-arm64 build/WheelFlip-x86_64 -output "$APP/Contents/MacOS/WheelFlip"
+rm build/WheelFlip-arm64 build/WheelFlip-x86_64
 
 cat > "$APP/Contents/Info.plist" <<'PLIST'
 <?xml version="1.0" encoding="UTF-8"?>

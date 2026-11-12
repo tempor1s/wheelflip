@@ -8,10 +8,10 @@ It uses a `CGEventTap` on scroll events. Trackpad and Magic Mouse scrolls always
 
 ## Install
 
-Needs the Command Line Tools (`xcode-select --install`).
+Works on macOS 13+ (Apple Silicon and Intel). Needs the Command Line Tools (`xcode-select --install`).
 
 ```bash
-git clone https://github.com/tempor1s/wheelflip && cd wheelflip
+git clone https://github.com/tempor1s/wheelflip.git && cd wheelflip
 ./build.sh                       # builds + runs the self-test
 cp -R build/WheelFlip.app /Applications/ && open /Applications/WheelFlip.app
 ```
